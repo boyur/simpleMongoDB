@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  p Имя
+  input(type="text")#name
+  p Фамилия
+  input(type="text")#surname
+  br
+
+  button#send Cохранить
+
+  br
+  br
+
+  table
+    tr
+      td Имя
+      td Фамилия
+    each item in data
+      tr
+        td= item.name
+        td= item.surname
