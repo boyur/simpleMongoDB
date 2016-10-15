@@ -24,10 +24,19 @@ var jsonParser = bodyParser.json();
 
 app.get('/', function(req, res) {
   UsersDB.find({}, function (err, items) {
-    res.render('index', {
-      title: 'Simple MongoDB',
-      data: items
+
+    UsersDB.count({}, function (err, count) {
+      console.log(count);
+
+      res.render('index', {
+        title: 'Simple MongoDB',
+        data: items,
+        counter: count
+      });
+
     });
+
+
   });
   //res.render('index', { title: 'Simple MongoDB' });
 });
@@ -42,6 +51,24 @@ app.post('/addItem', jsonParser, function(req, res) {
       res.send('ok');
     }
   });
+});
+
+app.post('/delItem', jsonParser, function(req, res) {
+
+  UsersDB.findOne({_id: req.body.id}, function (err, user) {
+
+    user.remove(function (err) {
+
+      console.log('User deleted!')
+    })
+
+  });
+
+  console.log(req.body.id);
+
+  //res.send(req.body);
+  //console.log(req.body);
+
 });
 
 // view engine setup

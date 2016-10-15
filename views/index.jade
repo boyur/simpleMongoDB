@@ -17,9 +17,16 @@ block content
 
   table
     tr
+      td №
       td Имя
       td Фамилия
-    each item in data
+    each item, id in data
       tr
+        td= id
         td= item.name
         td= item.surname
+        td
+          button(data-id="#{item._id}", data-flag="del") Удалить
+
+  br
+  p Всего #{counter} записей.
